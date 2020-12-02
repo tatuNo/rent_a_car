@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/cars
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbTEyMyIsImlkIjoiNWZjNzY2YTRmN2JkNTQyZDE4YTBlMjMwIiwiaWF0IjoxNjA2OTEyNjczfQ.K3zrsn9TtKGvZ6d9SuEN14d9TWDqxlT93bnPMteKf8U
+
+{
+    "location": "Turku",
+    "price": "Hyvin vähän",
+    "car": { "color": "red", "isNice": "yes"}
+}
