@@ -1,0 +1,32 @@
+{
+    "products":[
+    {
+        "_id":"auto1",
+        "title":"Auto 1",
+        "desc": "tietoa autosta",
+        "price": 1000,
+        "rented": ["true", "false"]
+    },
+    {
+        "_id":"auto2",
+        "title":"Auto 2",
+        "desc": "tietoa autosta",
+        "price": 1000,
+        "rented": ["true", "false"]
+    },
+    {
+        "_id":"auto3",
+        "title":"Auto 3",
+        "desc": "tietoa autosta",
+        "price": 1000,
+        "rented": ["true", "false"]
+    },
+    {
+        "_id":"auto3",
+        "title":"Auto 3",
+        "desc": "tietoa autosta",
+        "price": 1000,
+        "rented": ["true", "false"]
+    }
+    ]
+}
