@@ -10,7 +10,7 @@ function Signup() {
   const [numberReg, setNumberReg] = useState("");
 
   const register = () => {
-    Axios.post("http://localhost3003/api/users", {
+    Axios.post("http://localhost3003/api/users/", {
       username: usernameReg,
       name: nameReg,
       password: passwordReg,
