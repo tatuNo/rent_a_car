@@ -1,0 +1,45 @@
+.formWrap {
+  background-color: #242424;
+  height: 90vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.formWrap > h1 {
+  font-size: 44px;
+  color: #fff;
+}
+
+.formWrap > button {
+  padding: 1em;
+  margin: 1em;
+  font-size: 1.3em;
+}
+
+.formContainer {
+  padding: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.form > input {
+  padding: 3px;
+}
+
+.form > h5 {
+  color: #fff;
+}
