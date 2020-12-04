@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./Signup.css";
 
@@ -9,16 +10,25 @@ function Signup() {
   const [emailReg, setEmailReg] = useState("");
   const [numberReg, setNumberReg] = useState("");
 
+  Axios.defaults.withCredentials = true;
+
   const register = () => {
-    Axios.post("http://localhost3003/api/users/", {
+    Axios.post("api/users/", {
       username: usernameReg,
       name: nameReg,
       password: passwordReg,
       email: emailReg,
-      number: numberReg,
-    }).then((response) => {
-      console.log(response);
-    });
+      phone: numberReg,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        document.getElementById("form").reset();
+      })
+      .then(() => {
+        <Link to="/Successful"></Link>;
+      });
   };
 
   return (
@@ -26,7 +36,7 @@ function Signup() {
       <div className="formWrap">
         <h1>Registration</h1>
         <div className="formContainer">
-          <form className="form" action="#">
+          <form className="form" id="form" action="#">
             <h5>Username</h5>
             <input
               type="text"
