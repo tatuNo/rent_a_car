@@ -1,21 +1,22 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import Cards from "./components/Cards";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Footer from "./components/Footer";
+import Home from "./components/pages/Home";
+import Renting from "./components/pages/Renting";
+import About from "./components/pages/About";
+import Signup from "./components/pages/Signup";
 
 function App() {
   return (
     <>
       <Router>
         <Navbar />
-        <HeroSection />
-        <Cards />
-        <Footer />
         <Switch>
-          <Route path="/" exact />
+          <Route path="/" exact component={Home} />
+          <Route path="/renting" component={Renting} />
+          <Route path="/about" component={About} />
+          <Route path="/Signup" component={Signup} />
         </Switch>
       </Router>
     </>
