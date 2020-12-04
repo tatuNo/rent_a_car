@@ -27,11 +27,11 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div class="navbar-container">
+        <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-            RECAR <i class="fas fa-car" />
+            RECAR <i className="fas fa-car" />
           </Link>
-          <div class="menu-icon" onClick={handleClick}>
+          <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
@@ -56,7 +56,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                to="/sign-up"
+                to="/Signup"
                 className="nav-links-mobile"
                 onClick={closeMobileMenu}
               >
