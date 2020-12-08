@@ -3,7 +3,11 @@ Content-Type: application/json
 
 {
     "username": "j",
-    "password": "jarinpassu",
-    "email": "sahkoposti@mail.com",
-    "phone": "3123123213123"
+    "password": "",
+    "email": "",
+    "phone": ""
 }
+
+//jarinpassu
+//sahkoposti@mail.com
+//3123123213123

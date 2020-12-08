@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./Signup.css";
 
+
 function Signup() {
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [nameReg, setNameReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [numberReg, setNumberReg] = useState("");
+  const [errorMessage,setErrorMessage] = useState(null)
 
   Axios.defaults.withCredentials = true;
 
@@ -20,15 +22,22 @@ function Signup() {
       email: emailReg,
       phone: numberReg,
     })
-      .then((response) => {
-        console.log(response);
-      })
-      .then(() => {
-        document.getElementById("form").reset();
-      })
-      .then(() => {
-        <Link to="/Successful"></Link>;
-      });
+    .catch(error => {
+      setErrorMessage(error.response.data.error.toString())
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000);
+      console.log(error.response.data.error)
+    }) 
+    .then((response) => {
+      console.log(response);
+    })
+    .then(() => {
+      document.getElementById("form").reset();
+    })
+    .then(() => {
+      <Link to="/Successful"></Link>;
+    });
   };
 
   return (
@@ -75,6 +84,9 @@ function Signup() {
             <h5>Repeat password</h5>
             <input type="password" />
           </form>
+        </div>
+        <div>
+          <p>{errorMessage}</p>
         </div>
         <button onClick={register}>SIGN UP</button>
       </div>
