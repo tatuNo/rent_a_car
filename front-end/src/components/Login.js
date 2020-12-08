@@ -1,55 +1,55 @@
-import React, { useState } from "react"
-import loginService from '../../services/login'
-import carsService from '../../services/cars'
-import "../../App.css"
-import "../Signup.css"
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import loginService from "../services/login";
+import carsService from "../services/cars";
+import "../App.css";
+import "../components/Signup.css";
 
-function Login () {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    // Tää pää komponenttiin ? const [user, setUser] = useState('')
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  let history = useHistory();
+  // Tää pää komponenttiin ? const [user, setUser] = useState('')
 
-    // 
-    // useEffect(() => {
-    //   const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    //   if(loggedUserJSON) {
-    //     const user = JSON.parse(loggedUserJSON)
-    //     setUser(user)
-    //     blogService.setToken(user.token)
-    //   }
-    // }, [])
-  
-    // const handleLogout = event => {
-    //   event.preventDefault()
-    //   window.localStorage.removeItem('loggedUser')
-    //   blogService.setToken(null)
-    //   setUser(null)
-    // }
-   
-  
-    const handleLogin = async event => {
-    event.preventDefault()
-    
+  //
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedUser')
+  //   if(loggedUserJSON) {
+  //     const user = JSON.parse(loggedUserJSON)
+  //     setUser(user)
+  //     blogService.setToken(user.token)
+  //   }
+  // }, [])
+
+  // const handleLogout = event => {
+  //   event.preventDefault()
+  //   window.localStorage.removeItem('loggedUser')
+  //   blogService.setToken(null)
+  //   setUser(null)
+  // }
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     try {
       const user = await loginService.login({
-        username,password
-      })
-      window.localStorage.setItem (
-        'loggedUser', JSON.stringify(user)
-      )
-      carsService.setToken(user.token)
-      console.log(user)
+        username,
+        password,
+      });
+      window.localStorage.setItem("loggedUser", JSON.stringify(user));
+      carsService.setToken(user.token);
+      console.log(user);
       // setUser(user)
-      setUsername('')
-      setPassword('')
+      setUsername("");
+      setPassword("");
     } catch (exception) {
-      console.log(exception)
+      console.log(exception);
     }
-    }
-  
-  
-    return (
-      <>
+    history.push("/");
+  };
+
+  return (
+    <>
       <div className="formWrap">
         <h1>Log in</h1>
         <div className="formContainer">
@@ -75,8 +75,7 @@ function Login () {
         <button onClick={handleLogin}>LOG IN</button>
       </div>
     </>
-  
-    );
-  }
-  
-  export default Login;
+  );
+}
+
+export default Login;

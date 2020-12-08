@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "../Login";
 
-function Login() {
+function LoginP() {
   return (
     <>
       <Login />
@@ -9,4 +9,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginP;
