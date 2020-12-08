@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import "./Signup.css";
-
 
 function Signup() {
   const [usernameReg, setUsernameReg] = useState("");
@@ -10,7 +9,8 @@ function Signup() {
   const [nameReg, setNameReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [numberReg, setNumberReg] = useState("");
-  const [errorMessage,setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null);
+  let history = useHistory();
 
   Axios.defaults.withCredentials = true;
 
@@ -22,24 +22,20 @@ function Signup() {
       email: emailReg,
       phone: numberReg,
     })
-    .catch(error => {
-      setErrorMessage(error.response.data.error.toString())
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000);
-      console.log(error.response.data.error)
-    }) 
-    .then((response) => {
-      console.log(response);
-    })
-    .then(() => {
-      document.getElementById("form").reset();
-    })
-    .then(() => {
-      <Link to="/Successful"></Link>;
-    });
+      .catch((error) => {
+        setErrorMessage(error.response.data.error.toString());
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+        console.log(error.response.data.error);
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        history.push("/Login");
+      });
   };
-
   return (
     <>
       <div className="formWrap">
