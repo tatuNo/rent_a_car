@@ -16,12 +16,23 @@ carsRouter.post("/", async (request, response) => {
     return response.status(401).json({ error: "token missing or invalid " });
   }
   const user = await User.findById(decodedToken.id);
-
+  // IMG ?
   const car = new Car({
     date: new Date(),
     location: body.location,
     price: body.price,
-    car: body.car,
+    carBrand: body.carBrand,
+    basicInfo: body.basicInfo,
+    technicalDetails: {
+    vechileType: body.technicalDetails.vechileType,
+    color: body.technicalDetails.color,
+    fuelTypes: body.technicalDetails.fuelTypes,
+    tyreType: body.technicalDetails.tyreType,
+    trailerHitch: body.technicalDetails.trailerHitch,
+    seatingCapacity: body.technicalDetails.seatingCapacity,
+    transmission: body.technicalDetails.transmission,
+    mileage: body.technicalDetails.mileage
+    },
     user: user._id,
   });
 
