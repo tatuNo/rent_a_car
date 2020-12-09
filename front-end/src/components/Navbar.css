@@ -15,13 +15,13 @@
   justify-content: center;
   align-items: center;
   height: 80px;
-  max-width: 1500px;
+  width: 100%;
 }
 
 .navbar-logo {
   color: #fff;
   justify-self: start;
-  margin-left: 20px;
+  margin-left: 140px;
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
@@ -36,11 +36,11 @@
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(5, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
-  width: 60vw;
+  width: 100%;
   justify-content: end;
   margin-right: 2rem;
 }
@@ -53,6 +53,17 @@
   color: #fff;
   display: flex;
   align-items: center;
+  justify-items: left;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 100%;
+}
+
+.nav-links-btn {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-items: right;
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
@@ -91,13 +102,72 @@
   display: none;
 }
 
-.menu-icon {
+.bm-burger-button {
   display: none;
+}
+
+.bm-menu-wrap {
+  display: none;
+}
+
+.bm-overlay {
+  display: none;
+}
+
+.button-mobile {
+  background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid #fff;
+  transition: all 0.3s ease-out;
+}
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 2px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bton--primary {
+  background-color: var(--primary);
+  color: #242424;
+  border: 1px solid var(--primary);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+}
+
+.btn--medium {
+  padding: 8px 20px;
+  font-size: 20px;
+}
+
+.btn--large {
+  padding: 12px 26px;
+  font-size: 20px;
+}
+.btn--medium:hover,
+.button-mobile:hover {
+  background-color: #fff;
+  color: #242424;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
 }
 
 @media screen and (max-width: 960px) {
   .NavbarItems {
     position: relative;
+  }
+
+  .navbar-logo {
+    margin-left: 1vh;
   }
 
   .nav-menu {
@@ -152,7 +222,8 @@
 
   .fa-times {
     color: #fff;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    background-color: #242222;
   }
 
   .nav-links-mobile {
@@ -174,5 +245,102 @@
     background: #fff;
     color: #242424;
     transition: 250ms;
+  }
+
+  .main-nav-active {
+  }
+
+  .button-mobile {
+    display: none;
+  }
+
+  /* Position and sizing of burger button */
+  .bm-burger-button {
+    position: fixed;
+    width: 34px;
+    height: 34px;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 2rem;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background: #fff;
+  }
+
+  /* Color/shape of burger icon bars on hover*/
+  .bm-burger-bars-hover {
+    background: lightgray;
+  }
+
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  #react-burger-cross-btn {
+    width: 36px;
+    height: 36px;
+  }
+  /* Color/shape of close button cross */
+  .bm-cross {
+    width: 30px;
+    height: 30px;
+    background-color: #373a47;
+  }
+
+  /*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+  .bm-menu-wrap {
+    display: block;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100vh;
+  }
+
+  /* General sidebar styles */
+  .bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: #373a47;
+  }
+
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: #b8b7ad;
+    padding: 0.8em;
+  }
+
+  /* Individual item */
+  .bm-item {
+    display: inline-block;
+  }
+
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
   }
 }

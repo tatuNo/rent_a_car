@@ -24,7 +24,7 @@ usersRouter.post("/", async (request, response) => {
   if (body.password.length < 4) {
     return response
       .status(400)
-      .json({ error: "password minimum length 4 characters" });
+      .json({ msg: "password minimum length 4 characters" });
   }
 
   const username = await User.find({ username: body.username });
