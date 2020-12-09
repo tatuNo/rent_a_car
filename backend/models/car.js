@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const carSchema = mongoose.Schema({
-    // IMG ?
+    img: { type: String },
     date: { type: String },
     location: { type: String },
     price: { type: Number },

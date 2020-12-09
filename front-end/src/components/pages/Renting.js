@@ -1,6 +1,13 @@
 import React from "react";
 import "../../App.css";
+import Renting from "../Renting"
 
-export default function Renting() {
-  return <h1 className="renting">Renting</h1>;
+function RentingP () {
+  return (
+    <>
+    <Renting />
+    </>
+  );
 }
+
+export default RentingP;

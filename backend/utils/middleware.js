@@ -28,14 +28,6 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
     } else if (error.name === 'ValidationError') {
-      const kejs = Object.keys(error.errors)
-      const msgs = []
-      
-      kejs.forEach((key)=> {
-        msgs.push(error.errors[key].message)
-      });
-
-    error.message = msgs
     return response.status(400).json({ error: error.message })  
   } else if (error.name === 'JsonWebTokenError') {
     return response.status(401).json({ error: 'invalid token' })

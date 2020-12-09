@@ -5,8 +5,20 @@ const User = require("../models/user");
 usersRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  if (body.password == undefined) {
+  if (body.password === undefined) {
     return response.status(400).json({ error: "password missing" });
+  }
+
+  if(body.username === undefined) {
+    return response.status(400).json({ error: "username missing"})
+  }
+
+  if(body.email === undefined) {
+    return response.status(400).json({ error: "email missing"})
+  }
+  
+  if(body.phone === undefined) {
+    return response.status(400).json({ error: "phonenumber missing"})
   }
 
   if (body.password.length < 4) {
@@ -14,6 +26,17 @@ usersRouter.post("/", async (request, response) => {
       .status(400)
       .json({ error: "password minimum length 4 characters" });
   }
+
+  const username = await User.find({ username: body.username });
+  if(username) {
+    return response.status(400).json({ error: "username already exists" });
+  }
+
+  const email = await User.find({ email: body.email });
+  if(email) {
+    return response.status(400).json({ error: "user with this email address already created" });
+  }
+
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
