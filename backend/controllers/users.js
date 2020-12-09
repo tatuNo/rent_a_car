@@ -5,14 +5,14 @@ const User = require("../models/user");
 usersRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  if (body.password == undefined) {
-    return response.status(400).json({ error: "password missing" });
+  if (body.password == null) {
+    return response.status(400).json({ msg: "password missing" });
   }
 
   if (body.password.length < 4) {
     return response
       .status(400)
-      .json({ error: "password minimum length 4 characters" });
+      .json({ msg: "password minimum length 4 characters" });
   }
 
   const saltRounds = 10;

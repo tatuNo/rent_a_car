@@ -1,53 +1,51 @@
-const e = require('express')
-const logger = require ('./logger')
+const e = require("express");
+const logger = require("./logger");
 
 const requestLogger = (request, response, next) => {
-    logger.info('Method:', request.method)
-    logger.info('Path:  ', request.path)
-    logger.info('Body:  ', request.body)
-    logger.info('---')
-    next()
-}
+  logger.info("Method:", request.method);
+  logger.info("Path:  ", request.path);
+  logger.info("Body:  ", request.body);
+  logger.info("---");
+  next();
+};
 
 const tokenExtractor = (request, response, next) => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    request.token = authorization.substring(7)
+  const authorization = request.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    request.token = authorization.substring(7);
   }
 
-  next()
-}
+  next();
+};
 
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
-}
+  response.status(404).send({ msg: "unknown endpoint" });
+};
 
 const errorHandler = (error, request, response, next) => {
-  
+  if (error.name === "CastError" && error.kind === "ObjectId") {
+    return response.status(400).send({ error: "malformatted id" });
+  } else if (error.name === "ValidationError") {
+    const kejs = Object.keys(error.errors);
+    const msgs = [];
 
-  if (error.name === 'CastError' && error.kind === 'ObjectId') {
-    return response.status(400).send({ error: 'malformatted id' })
-    } else if (error.name === 'ValidationError') {
-      const kejs = Object.keys(error.errors)
-      const msgs = []
-      
-      kejs.forEach((key)=> {
-        msgs.push(error.errors[key].message)
-      });
+    kejs.forEach((key) => {
+      msgs.push(error.errors[key].message);
+    });
 
-    error.message = msgs
-    return response.status(400).json({ error: error.message })  
-  } else if (error.name === 'JsonWebTokenError') {
-    return response.status(401).json({ error: 'invalid token' })
-  } 
-  
+    error.message = msgs;
+    return response.status(400).json({ error: error.message });
+  } else if (error.name === "JsonWebTokenError") {
+    return response.status(401).json({ error: "invalid token" });
+  }
+
   //logger.error(error.message)
-  next(error)
-}
+  next(error);
+};
 
 module.exports = {
-errorHandler,
-requestLogger,
-unknownEndpoint,
-tokenExtractor
-}
+  errorHandler,
+  requestLogger,
+  unknownEndpoint,
+  tokenExtractor,
+};
