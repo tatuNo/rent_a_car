@@ -25,9 +25,10 @@ function About () {
             img: imageFile.base64,
             location: location,
             price: price,
-            basicinfo: basicinfo,
+            basicInfo: basicinfo,
             carBrand: carBrand,
             technicalDetails: {
+                vechileType: vechileType,
                 color: color,
                 fuelTypes: fuelTypes,
                 tyreType: tyreType,
@@ -37,15 +38,20 @@ function About () {
                 mileage: mileage
             }
         }
-        // carService
-        // .create(carObject)
-        // .then(returnedObject => {
-        //     console.log(returnedObject)
-        // })
+        carService
+        .create(carObject)
+        .then(returnedObject => {
+            console.log(returnedObject)
+        })
+        .catch(error => {
+            console.log(error.message);    
+        })
+
         console.log(carObject);
     }
     console.log(cars);
-    
+    console.log(imageFile)
+   
     return(
         <>
         <h1>Rent your car!</h1>

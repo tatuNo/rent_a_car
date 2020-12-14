@@ -1,59 +1,41 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { login } from "../actions/authActions";
-import { clearErrors } from "../actions/errorActions";
+import loginService from "../services/login";
+import carService from "../services/cars";
+import {useSelector, useDispatch} from "react-redux";
+import { userLogin } from "../reducers/user";
 
-class Login extends Component {
-  state = {
-    username: "",
-    password: "",
-    msg: null,
-  };
-
-  static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-  };
-  componentDidUpdate(prevProps) {
-    const { error } = this.props;
-    if (error !== prevProps.error) {
-      if (error.id === "LOGIN_FAIL") {
-        this.setState({ msg: error.msg.msg });
-      } else {
-        this.setState({ msg: null });
-      }
+function Login() {
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  //const [kayttaja, setKayttaja] = useState(null);
+  
+  const handleLogin = async event => {
+    event.preventDefault();
+    
+    try {
+      const user = await loginService.login({
+        username, password
+      });
+      // window.localStorage.setItem (
+      //   'loggedUser', JSON.stringify(user)
+      // )
+      dispatch(userLogin(user));
+      carService.setToken(user.token);
+      //setKayttaja(user);
+      setUsername('');
+      setPassword('');   
+    } catch (exception) {
+      console.log(exception);
     }
-  }
+}
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.clearErrors();
-    const { username, password } = this.state;
-
-    const user = {
-      username,
-      password,
-    };
-
-    this.props.login(user);
-  };
-
-  render() {
     return (
       <>
         <div className="formWrap">
           <img src={process.env.PUBLIC_URL + "/images/login.svg"} alt="" />
           <h1>Login</h1>
-          {this.state.msg ? <p>{this.state.msg}</p> : null}
-
           <div className="formContainer">
             <form className="form" id="form" action="#">
               <input
@@ -61,28 +43,24 @@ class Login extends Component {
                 name="username"
                 id="username"
                 placeholder="Username"
-                onChange={this.onChange}
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
               />
               <input
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
-                onChange={this.onChange}
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
               />
             </form>
           </div>
           <div></div>
-          <button onClick={this.onSubmit}>LOGIN</button>
+          <button onClick={handleLogin}>LOGIN</button>
         </div>
       </>
     );
   }
-}
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error,
-});
-
-export default connect(mapStateToProps, { login, clearErrors })(Login);
+export default Login;

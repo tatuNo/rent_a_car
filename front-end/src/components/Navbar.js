@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./Buttons";
 import "./Navbar.css";
@@ -6,51 +6,47 @@ import Menu from "./Menu";
 import { logout } from "../actions/authActions";
 import { connect, Provider } from "react-redux";
 import PropTypes from "prop-types";
+import {useSelector, useDispatch} from "react-redux";
+import { userLogout } from "../reducers/user";
+import carService from "../services/cars";
+  
+  function Navbar() {
+    const dispatch = useDispatch();
 
-class Navbar extends Component {
-  state = {
-    setClick: false,
-    setButton: true,
-  };
+    const [click, setClick] = useState(false);
+    const [button, setButton] = useState(true);
 
-  static propTypes = {
-    auth: PropTypes.object.isRequired,
-    logout: PropTypes.func.isRequired,
-  };
+    const handleClick = () => setClick(!click);
+    const closeMobileMenu = () => setClick(false);
 
-  onSubmit = (e) => {
-    e.preventDefault();
+    const showButton = () => {
+      if (window.innerWidth <= 960) {
+        setButton(false);
+      } else {
+        setButton(true);
+      }
+    };
 
-    this.props.logout();
-  };
+    useEffect(() => {
+      showButton();
+    }, []);
 
-  render() {
-    // const [click, setClick] = useState(false);
-    // const [button, setButton] = useState(true);
+    window.addEventListener("resize", showButton);
+    
+    const userstate = useSelector(state => state.user);
+    let isAuthenticated = userstate.logged;
+    
 
-    // const handleClick = () => setClick(!click);
-    // const closeMobileMenu = () => setClick(false);
-
-    // const showButton = () => {
-    //   if (window.innerWidth <= 960) {
-    //     setButton(false);
-    //   } else {
-    //     setButton(true);
-    //   }
-    // };
-
-    // useEffect(() => {
-    //   showButton();
-    // }, []);
-
-    // window.addEventListener("resize", showButton);
-
-    const { isAuthenticated, user } = this.props.auth;
-
+    const handleLogout = (e) => {
+      e.preventDefault();
+      dispatch(userLogout());
+      carService.setToken(null);
+    }
+  
     const authLinks = (
       <Fragment>
         <Button
-          onClick={this.onSubmit}
+          onClick={handleLogout}
           className="button-mobile"
           buttonStyle="btn--primary"
         >
@@ -83,7 +79,7 @@ class Navbar extends Component {
               customBurgerIcon={<i className="fas fa-bars" />}
               customCrossIcon={<i className="fas fa-times" />}
             ></Menu>
-            <ul className={this.state.click ? "nav-menu active" : "nav-menu"}>
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
               <li className="nav-item">
                 <NavLink
                   exact
@@ -123,11 +119,7 @@ class Navbar extends Component {
       </>
     );
   }
-}
 
-const mapStateToProps = (state) => ({
-  isOpened: state.isOpened,
-  auth: state.auth,
-});
 
-export default connect(mapStateToProps, { logout })(Navbar);
+
+export default Navbar;

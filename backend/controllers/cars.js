@@ -11,7 +11,7 @@ carsRouter.get("/", async (request, response) => {
 
 carsRouter.get("/:id", async (request, response) => {
   //populate?
-  const car = await Car.findById(request.params.id);
+  const car = await Car.findById(request.params.id).populate("user", { username: 1 })
   if(car) {
     response.json(car.toJSON());
   } else {

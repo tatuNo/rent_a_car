@@ -21,4 +21,14 @@ const create = async (newObject) => {
   return response.data;
 };
 
-export default { getAll, create, setToken };
+const getOne =  async (id) => {
+ const response = await axios.get(`${baseUrl}/${id}`);
+ return response.data;
+};
+
+const deleteCar = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`);
+  return response.data;
+};
+
+export default { getAll, create, setToken, getOne, deleteCar };

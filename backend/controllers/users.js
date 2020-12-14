@@ -26,14 +26,15 @@ usersRouter.post("/", async (request, response) => {
       .status(400)
       .json({ msg: "password minimum length 4 characters" });
   }
-
-  const username = await User.find({ username: body.username });
-  if(username) {
+  
+  const username = await User.countDocuments({ username: body.username });
+  
+  if(username > 0) {
     return response.status(400).json({ error: "username already exists" });
   }
 
-  const email = await User.find({ email: body.email });
-  if(email) {
+  const email = await User.countDocuments({ email: body.email });
+  if(email > 0) {
     return response.status(400).json({ error: "user with this email address already created" });
   }
 

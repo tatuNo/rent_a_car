@@ -7,6 +7,7 @@ import Renting from "./components/pages/Renting";
 import About from "./components/pages/About";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
+import Mycars from "./components/pages/MycarsP";
 import Successful from "./components/pages/SuccessfulP";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -30,6 +31,7 @@ class App extends Component {
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
               <Route path="successful" component={Successful} />
+              <Route path="/mycars" component={Mycars} />
             </Switch>
           </Router>
         </>
