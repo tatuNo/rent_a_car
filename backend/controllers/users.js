@@ -5,26 +5,30 @@ const User = require("../models/user");
 usersRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  if (body.password === undefined) {
+  if (body.password.length === 0) {
     return response.status(400).json({ error: "password missing" });
   }
 
-  if(body.username === undefined) {
+  if (body.name.length === 0) {
+    return response.status(400).json({ error: "name missing" });
+  }
+
+  if(body.username.length === 0) {
     return response.status(400).json({ error: "username missing"})
   }
 
-  if(body.email === undefined) {
+  if(body.email.length === 0) {
     return response.status(400).json({ error: "email missing"})
   }
   
-  if(body.phone === undefined) {
+  if(body.phone.length === 0) {
     return response.status(400).json({ error: "phonenumber missing"})
   }
 
   if (body.password.length < 4) {
     return response
       .status(400)
-      .json({ msg: "password minimum length 4 characters" });
+      .json({ error: "password minimum length 4 characters" });
   }
   
   const username = await User.countDocuments({ username: body.username });

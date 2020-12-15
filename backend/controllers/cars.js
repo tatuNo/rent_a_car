@@ -35,39 +35,39 @@ carsRouter.post("/", async (request, response) => {
   }
   const user = await User.findById(decodedToken.id);
 
-  if(body.img === undefined) {
+  if(body.img.length === 0) {
     return response.status(400).json({ error: "car image required" });
   }
 
-  if(body.location === undefined) {
+  if(body.location.length === 0) {
     return response.status(400).json({ error: "car location required" });
   }
 
-  if(body.price === undefined) {
+  if(body.price.length === 0) {
     return response.status(400).json({ error: "price required" });
   }
 
-  if(body.carBrand === undefined) {
+  if(body.carBrand.length === 0) {
     return response.status(400).json({ error: "car brand required" });
   }
 
-  if(body.basicInfo === undefined) {
+  if(body.basicInfo.length === 0) {
     return response.status(400).json({ error: "basic info required" });
   }
 
-  if(body.technicalDetails.vechileType === undefined) {
+  if(body.technicalDetails.vechileType.length === 0) {
     return response.status(400).json({ error: "vechile type required" });
   }
   
-  if(body.technicalDetails.color === undefined) {
+  if(body.technicalDetails.color.length === 0) {
     return response.status(400).json({ error: "color required" });
   }
 
-  if(body.technicalDetails.fuelTypes === undefined) {
+  if(body.technicalDetails.fuelTypes.length === 0) {
     return response.status(400).json({ error: "fuel type required" });
   }
 
-  if(body.technicalDetails.tyreType === undefined) {
+  if(body.technicalDetails.tyreType.length === 0) {
     return response.status(400).json({ error: "tyre type required" });
   }
 
@@ -75,15 +75,15 @@ carsRouter.post("/", async (request, response) => {
     return response.status(400).json({ error: "trailer hitch required" });
   }
 
-  if(body.technicalDetails.seatingCapacity === undefined) {
+  if(body.technicalDetails.seatingCapacity.length === 0) {
     return response.status(400).json({ error: "seating capacity required" });
   }
 
-  if(body.technicalDetails.transmission === undefined) {
+  if(body.technicalDetails.transmission.length === 0) {
     return response.status(400).json({ error: "transmission required" });
   }
 
-  if(body.technicalDetails.mileage === undefined) {
+  if(body.technicalDetails.mileage.length === 0) {
     return response.status(400).json({ error: "mileage required" });
   }
   
