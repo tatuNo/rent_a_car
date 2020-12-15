@@ -113,4 +113,15 @@ carsRouter.post("/", async (request, response) => {
   response.status(201).json(savedCar.toJSON());
 });
 
+carsRouter.put("/:id", async (request, response) => {
+  const body = request.body;
+  
+  const updatedCar = await Car.findByIdAndUpdate(request.params.id, {price: body.price}, {new: true, context: "query"});
+  if(updatedCar) {
+    response.json(updatedCar.toJSON());
+  } else {
+    response.status(404).end();
+  }
+});
+
 module.exports = carsRouter;

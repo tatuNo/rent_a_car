@@ -5,7 +5,7 @@ import CarService from "../services/cars";
 function MyCars() {
     const username = useSelector(state => state.user.username);
     const [cars, setCars] = useState([]);
-    const [price, setPrice] = useState ("");
+    const [price, setPrice] = useState ({});
 
     const divStyle = {
         display: "inline-block",
@@ -20,35 +20,69 @@ function MyCars() {
         .then(c => setCars(c));
     }, [username]);
 
+    const handleSubmit = async (id) => {
+        const target = id;
+        const targetprice = price[target];
+        const priceobject = {
+            price: targetprice
+        }
+        try {
+            const result = await CarService.update(id, priceobject);
+            const carList = cars.map(car => car.id === result.id ? {
+                ...car, price: result.price
+            }
+            : car );
+            setCars(carList);
+        } catch (e) {
+            console.log(e);
+        }    
+    }
+
+    const handlePriceChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name; 
+      setPrice({
+          ...price,
+          [name]: value,
+      })
+    }
     console.log(price);
-
-    const handleSubmit = () => {
-        console.log("jees");
+    const handleDelete = async (id) => {
+        try{
+            const car = await CarService.deleteCar(id);
+            const carList = cars.filter(car => car.id !== id);
+            setCars(carList);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const handleDelete = (id) => {
-
-    }
+  if(cars.length === 0 ) {
+      return(
+          <p>No cars listed!</p>
+      )
+  }
 
   return (
     <>
       <h1>Your listings</h1>
       <div>
       {cars.map(car =>
-            <div style={divStyle}>
+            <div style={divStyle} key={car.id}>
             <img src={car.img}/>
-            <form onSubmit={handleSubmit}>
+            <form>
             <div>
                 update price <input
                 type="text"
-                name="location"
+                name={car.id}
                 placeholder={car.price}
-                onChange={({ target }) => setPrice (target.value)}
+                onChange={handlePriceChange}
                 />
             </div>
-            <button type="submit">Submit</button>
-            <button onClick={handleDelete(car.id)}>Delete listing</button>
-                </form> 
+            </form>
+            <button onClick={() => handleSubmit(car.id)}>Submit</button>
+            <button onClick={() => handleDelete(car.id)}>Delete listing</button> 
             </div>)}  
       </div>
     </>

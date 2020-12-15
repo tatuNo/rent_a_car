@@ -9,16 +9,17 @@ function About () {
     const [carBrand, setCarBrand] = useState("");
     const [vechileType, setVechileType] = useState("");
     const [color, setColor] = useState("");
-    const [fuelTypes, setFuelTypes] = useState(""); // electric, gas, diesel
-    const [tyreType, setTyreType] = useState(""); // winter, summer
-    const [trailerHitch, setTrailerHitch] = useState(false); //check box
+    const [fuelTypes, setFuelTypes] = useState(""); 
+    const [tyreType, setTyreType] = useState(""); 
+    const [trailerHitch, setTrailerHitch] = useState(false); 
     const [seatingCapacity, setSeatingCapacity] = useState("");
-    const [transmission, setTransmission] = useState(""); // manual, automatic
+    const [transmission, setTransmission] = useState(""); 
     const [mileage, setMileage] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [cars, setCars] = useState([]);
     
-    const handleSubmit = event => {
+    // tämä asynciksi...
+    const handleSubmit = async event => {
         event.preventDefault();
 
         const carObject = {
@@ -38,20 +39,15 @@ function About () {
                 mileage: mileage
             }
         }
-        carService
-        .create(carObject)
-        .then(returnedObject => {
-            console.log(returnedObject)
-        })
-        .catch(error => {
-            console.log(error.message);    
-        })
-
+        try {
+        const car = await carService.create(carObject);
+        console.log(car);
+        } catch (e) {
+        console.log(e);
+        }
         console.log(carObject);
     }
-    console.log(cars);
-    console.log(imageFile)
-   
+  
     return(
         <>
         <h1>Rent your car!</h1>

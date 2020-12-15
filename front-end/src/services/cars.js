@@ -31,4 +31,9 @@ const deleteCar = async (id) => {
   return response.data;
 };
 
-export default { getAll, create, setToken, getOne, deleteCar };
+const update = async (id, price) => {
+  const response = await axios.put(`${baseUrl}/${id}`, price);
+  return response.data;
+}
+
+export default { getAll, create, setToken, getOne, deleteCar, update };

@@ -8,7 +8,7 @@ import { NavLink, Link } from "react-router-dom";
 function Renting() {
     const [cars, setCars] = useState([]);
     const [clickedCar, setClickedCar] = useState(null);
-    
+
     const divStyle = {
         display: "inline-block",
         width: "250px",
@@ -25,10 +25,14 @@ function Renting() {
         setCars( cars ));
     }, []);
 
-    const showDetails = (id) => {
-        carService.getOne(id)
-        .then(car =>
-            setClickedCar(car));
+    const showDetails = async (id) => {
+        try{
+            const car = await carService.getOne(id);
+            setClickedCar(car);
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     const authLinks = (
