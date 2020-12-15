@@ -42,8 +42,9 @@ function About () {
         try {
         const car = await carService.create(carObject);
         console.log(car);
-        } catch (e) {
-        console.log(e);
+        } catch (error) {
+            // Error message
+        console.log(error.response.data.error);
         }
         console.log(carObject);
     }

@@ -19,8 +19,9 @@ function Signup () {
      username, name, email, phone, password
    });
   console.log(user)
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    // Error message
+    console.log(error.response.data.error);
     }
   }
     return (

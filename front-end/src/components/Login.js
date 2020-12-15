@@ -26,8 +26,9 @@ function Login() {
       //setKayttaja(user);
       setUsername('');
       setPassword('');   
-    } catch (exception) {
-      console.log(exception);
+    } catch (error) {
+      // Oikea error message
+      console.log(error.response.data.error);
     }
 }
 
